@@ -5,6 +5,7 @@ export const getAllPokemon = () => {
   const query = new Parse.Query(Pokemon);
   return query.find().then((results) => {
     return results.map((pokemon) => ({
+      // For each pokemon object, create a new object with the desired field name.
       objectId: pokemon.id,
       name: pokemon.get("name"),
       types: pokemon.get("types"),
