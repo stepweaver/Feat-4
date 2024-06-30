@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { getAllPokemon } from "../../services/getPokemonService";
-import PokemonSelect from '../Selector/Selector';
-import Pokemon from '../Pokemon/Pokemon';
+import PokemonList from '../PokemonCard/PokemonList';
 
 const Main = () => {
-  const [pokemon, setPokemon] = useState([]);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [pokemons, setPokemons] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getAllPokemon().then((pokemonData) => {
-      console.log(pokemonData);
-      setPokemon(pokemonData);
+      setPokemons(pokemonData);
     });
   }, []);
 
-  const handlePokemonSelect = (selected) => {
-    setSelectedPokemon(selected);
-  };
+  const filteredPokemons = pokemons.filter(pokemon =>
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="main-container">
       <h1>Choose Your Pokemon</h1>
-      <PokemonSelect
-        pokemon={pokemon}
-        onPokemonSelect={handlePokemonSelect}
+      <input
+        type="text"
+        placeholder="Search Pokemon"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
-      {selectedPokemon && <Pokemon pokemon={selectedPokemon} />}
+      <PokemonList pokemons={filteredPokemons.slice(0, 20)} />
     </div>
   );
 };
