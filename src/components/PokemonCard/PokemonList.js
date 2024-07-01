@@ -1,4 +1,3 @@
-// Corrected version: Use the index from the map function for a unique key
 import React from 'react';
 import PokemonCard from './PokemonCard';
 
