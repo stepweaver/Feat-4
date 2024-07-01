@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllPokemon } from "../../services/getPokemonService";
 import PokemonList from '../PokemonCard/PokemonList';
+import './Main.css';
 
 const Main = () => {
   const [pokemons, setPokemons] = useState([]);
