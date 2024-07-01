@@ -4,14 +4,9 @@
   justify-content: center;
 }
 
-.pokemon-list::after {
-  content: "";
-  flex: auto;
-}
-
 .pokemon-card {
-  width: calc(25% - 20px);
-  margin: 10px;
+  width: calc(25% - 40px);
+  margin: 20px;
   cursor: pointer;
   perspective: 1000px;
   position: relative;
