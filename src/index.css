@@ -34,39 +34,3 @@ body {
   color: #666;
   line-height: 1.6;
 }
-
-/* About Container Styles */
-.about-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.about-container h1,
-.about-container h2,
-.about-container h3,
-.about-container p {
-  color: #333;
-  text-align: center;
-}
-
-.about-container hr {
-  margin: 20px 0;
-}
-
-.about-container h2 {
-  color: #555;
-}
-
-.about-container h3 {
-  color: #777;
-  font-style: italic;
-}
-
-.about-container p {
-  color: #666;
-  line-height: 1.6;
-}
