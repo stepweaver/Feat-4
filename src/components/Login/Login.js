@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import login from '../../services/loginUserService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../services/authUserService';
 import './Login.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,7 +16,8 @@ function LoginForm() {
     if (result.success) {
       console.log('User logged in:', result.user);
       alert('Welcome back ' + result.user.get('username') + '! You are now logged in!');
-      navigate('/');
+      setIsAuthenticated(true);
+      navigate('/profile');
     } else {
       console.error('Error while logging in:', result.error);
     }
