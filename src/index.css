@@ -4,33 +4,3 @@ body {
   background-color: #1e1e1e;
   color: #f0f0f0;
 }
-
-/* Character Bio Styles */
-.character-bio {
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-.character-bio img {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto;
-}
-
-.character-bio h2 {
-  text-transform: uppercase;
-  color: #333;
-  text-align: center;
-}
-
-.character-bio p {
-  color: #666;
-  line-height: 1.6;
-}
