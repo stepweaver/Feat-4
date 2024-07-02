@@ -36,7 +36,9 @@ This interactive Pokedex project allows users to register, log in, and 'catch' P
   - Enter your registered email and password.
   - Access your profile.
 
-3. Catch Pokémon:
+3. Search, View and Catch Pokémon:
+  - Seach Pokémon from the Home page.
+  - Click on a Pokémon to view its stats.
   - Capture Pokémon from the Home page.
   - Your caught Pokémon will automatically appear in your profile.
 
