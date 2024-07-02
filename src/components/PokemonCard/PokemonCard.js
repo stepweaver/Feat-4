@@ -49,7 +49,7 @@ const PokemonCard = ({ pokemon }) => {
           <p>Attack - {pokemon.attack}</p>
           <p>Defense - {pokemon.defense}</p>
           <input
-            type='checkbox'
+            type='checkbox' // TODO: Prevent card flip when checking the box.
             checked={isCaught} // Set checkbox state to isCaught
             onChange={handleCatchChange} // Set handleCatchChange as the change handler
             id={`catch-${pokemon.name}`} // Set unique id for the checkbox
