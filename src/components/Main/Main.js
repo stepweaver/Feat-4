@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { getAllPokemon } from "../../services/getPokemonService";
-import PokemonList from '../PokemonCard/PokemonList';
-import './Main.css';
+import React, { useEffect, useState } from "react"; // Importing React, useEffect, and useState hooks
+import { getAllPokemon } from "../../Services/getPokemonService"; // Importing getAllPokemon function from getPokemonService
+import PokemonList from "../PokemonCard/PokemonList"; // Importing PokemonList component
+import "./Main.css"; // Importing CSS for the Main component
 
 const Main = () => {
-  const [pokemons, setPokemons] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [pokemons, setPokemons] = useState([]); // State for storing list of pokemons
+  const [searchQuery, setSearchQuery] = useState(""); // State for storing search query
 
   useEffect(() => {
+    // Fetch all Pokemon data when the component mounts
     getAllPokemon().then((pokemonData) => {
-      setPokemons(pokemonData);
+      setPokemons(pokemonData); // Update pokemons state with fetched data
     });
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once after initial render
 
-  const filteredPokemons = pokemons.filter(pokemon =>
+  // Filter pokemons based on search query
+  const filteredPokemons = pokemons.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -23,12 +25,12 @@ const Main = () => {
       <input
         type="text"
         placeholder="Search Pokemon"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        value={searchQuery} // Value of searchQuery state
+        onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery state on input change
       />
-      <PokemonList pokemons={filteredPokemons.slice(0, 20)} />
+      <PokemonList pokemons={filteredPokemons.slice(0, 20)} /> 
     </div>
   );
 };
 
-export default Main;
+export default Main; 
