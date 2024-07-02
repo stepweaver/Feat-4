@@ -63,4 +63,6 @@ const PokemonCard = ({ pokemon }) => {
   );
 };
 
-export default PokemonCard; 
+export default PokemonCard;
+
+// TODO: 'Caught' status doesn't persist after refreshing page. Need to make status persist for the logged in user.

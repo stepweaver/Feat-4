@@ -79,3 +79,4 @@ export default Profile; // Exporting Profile component as default export
 // TODO: Include create a pokemon option. Write to Pokemon class.
 // TODO: Add css for profile page.
 // TODO: Need a way for registered users to view other user's profiles. Only registered users can leave comments.
+// TODO: Can't release pokemon from profile. 'Caught' status doesn't persist.
