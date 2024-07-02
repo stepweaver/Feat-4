@@ -1,4 +1,4 @@
-import React from "react";  // Importing React
+import React from 'react';  // Importing React
 
 // Component to render a dropdown for selecting a Pokémon
 const PokemonSelect = ({ pokemon, onPokemonSelect }) => {
@@ -11,9 +11,9 @@ const PokemonSelect = ({ pokemon, onPokemonSelect }) => {
   };
 
   return (
-    <div className="pokemon-select">
+    <div className='pokemon-select'>
       <select onChange={handleChange}>  
-        <option value="">Select a pokémon</option>  
+        <option value=''>Select a pokémon</option>  
         {pokemon.map((p) => (
           <option key={p.objectId} value={p.objectId}>  
             {p.name}

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"; // Importing React, useEffect, and useState hooks
-import { getAllPokemon } from "../../Services/getPokemonService"; // Importing getAllPokemon function from getPokemonService
-import PokemonList from "../PokemonCard/PokemonList"; // Importing PokemonList component
-import "./Main.css"; // Importing CSS for the Main component
+import React, { useEffect, useState } from 'react'; // Importing React, useEffect, and useState hooks
+import { getAllPokemon } from '../../services/getPokemonService'; // Importing getAllPokemon function from getPokemonService
+import PokemonList from '../PokemonCard/PokemonList'; // Importing PokemonList component
+import './Main.css'; // Importing CSS for the Main component
 
 const Main = () => {
   const [pokemons, setPokemons] = useState([]); // State for storing list of pokemons
-  const [searchQuery, setSearchQuery] = useState(""); // State for storing search query
+  const [searchQuery, setSearchQuery] = useState(''); // State for storing search query
 
   useEffect(() => {
     // Fetch all Pokemon data when the component mounts
@@ -20,11 +20,11 @@ const Main = () => {
   );
 
   return (
-    <div className="main-container">
+    <div className='main-container'>
       <h1>Choose Your Pokemon</h1>
       <input
-        type="text"
-        placeholder="Search Pokemon"
+        type='text'
+        placeholder='Search Pokemon'
         value={searchQuery} // Value of searchQuery state
         onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery state on input change
       />

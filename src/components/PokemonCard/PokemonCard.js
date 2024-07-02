@@ -1,9 +1,9 @@
-import React, { useState } from "react"; // Importing React and useState hook
+import React, { useState } from 'react'; // Importing React and useState hook
 import {
   catchPokemon,
   releasePokemon,
-} from "../../Services/catchPokemonService"; // Importing catchPokemon and releasePokemon functions from catchPokemonService
-import "./PokemonCard.css"; // Importing CSS for the PokemonCard component
+} from '../../services/catchPokemonService'; // Importing catchPokemon and releasePokemon functions from catchPokemonService
+import './PokemonCard.css'; // Importing CSS for the PokemonCard component
 
 const PokemonCard = ({ pokemon }) => {
   const [isCaught, setIsCaught] = useState(false); // State for tracking if the Pokemon is caught
@@ -26,14 +26,14 @@ const PokemonCard = ({ pokemon }) => {
 
   return (
     <div
-      className={`pokemon-card ${isFlipped ? "flipped" : ""}`} // Apply flipped class if isFlipped is true
+      className={`pokemon-card ${isFlipped ? 'flipped' : ''}`} // Apply flipped class if isFlipped is true
       onClick={flipCard} // Set flipCard as the click handler
     >
       <img src={pokemon.image} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
-      <div className={isFlipped ? "content flipped" : "content"}>
-        <div className="pokemon-card-front">
-          <div className="pokemon-types-container">
+      <div className={isFlipped ? 'content flipped' : 'content'}>
+        <div className='pokemon-card-front'>
+          <div className='pokemon-types-container'>
             {pokemon.types.map((type, index) => (
               <span
                 key={index}
@@ -44,18 +44,18 @@ const PokemonCard = ({ pokemon }) => {
             ))}
           </div>
         </div>
-        <div className="pokemon-card-back">
+        <div className='pokemon-card-back'>
           <p>hp - {pokemon.hp}</p>
           <p>Attack - {pokemon.attack}</p>
           <p>Defense - {pokemon.defense}</p>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={isCaught} // Set checkbox state to isCaught
             onChange={handleCatchChange} // Set handleCatchChange as the change handler
             id={`catch-${pokemon.name}`} // Set unique id for the checkbox
           />
           <label htmlFor={`catch-${pokemon.name}`}>
-            {isCaught ? "Caught" : "Catch"}
+            {isCaught ? 'Caught' : 'Catch'}
           </label>
         </div>
       </div>

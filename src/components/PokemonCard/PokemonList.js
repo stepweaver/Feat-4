@@ -1,10 +1,10 @@
-import React from "react"; // Importing React
-import PokemonCard from "./PokemonCard"; // Importing PokemonCard component
+import React from 'react'; // Importing React
+import PokemonCard from './PokemonCard'; // Importing PokemonCard component
 
 const PokemonList = ({ pokemons }) => {
   // Defining PokemonList component which receives pokemons as props
   return (
-    <div className="pokemon-list">
+    <div className='pokemon-list'>
       {pokemons.map(
         (
           pokemon,
