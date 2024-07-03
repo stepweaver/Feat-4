@@ -46,9 +46,9 @@ This interactive Pokedex project allows users to register, log in, and 'catch' P
   - Visit another user's profile.
   - Leave a comment in the comment section to share your thoughts or tips.
 
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute, please fork the repository and submit a pull request.
+## Contributors
+  - Stephen Weaver
+  - Francisco Septian Quintan
 
 ## License
 
