@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; // Importing React and useState hook
-import { registerUser } from '../../services/registerUserService'; // Importing registerUser function from registerUserService
+import { registerUser } from '../../Services/registerUserService'; // Importing registerUser function from registerUserService
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook from react-router-dom
 import './Register.css'; // Importing CSS for the Register component
 

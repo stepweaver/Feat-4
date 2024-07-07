@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'; // Importing React, useEffec
 import Parse from 'parse'; // Importing Parse for interacting with Parse backend
 import PokemonCard from '../PokemonCard/PokemonCard'; // Importing PokemonCard component
 import CommentForm from '../CommentForm/CommentForm';
-import { addComment } from '../../services/addCommentService';
-import { getAllComments } from '../../services/getCommentService';
+import { addComment } from '../../Services/addCommentService';
+import { getAllComments } from '../../Services/getCommentService';
 import './Profile.css';
 
 const Profile = () => {
@@ -64,7 +64,7 @@ const Profile = () => {
           {comments.map((comment, index) => (
             <span key={index} className='comment'>
               <strong>{comment.user.get('username')}: </strong>
-              <span>{comment.text}</span> 
+              <span>{comment.text}</span>
             </span>
           ))}
         </div>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'; // Importing React and useState hook
 import {
   catchPokemon,
-  releasePokemon,
-} from '../../services/catchPokemonService'; // Importing catchPokemon and releasePokemon functions from catchPokemonService
+  releasePokemon
+} from '../../Services/catchPokemonService'; // Importing catchPokemon and releasePokemon functions from catchPokemonService
 import './PokemonCard.css'; // Importing CSS for the PokemonCard component
 
 const PokemonCard = ({ pokemon }) => {

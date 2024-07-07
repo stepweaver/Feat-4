@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; // Importing React, useEffect, and useState hooks
-import { getAllPokemon } from '../../services/getPokemonService'; // Importing getAllPokemon function from getPokemonService
+import { getAllPokemon } from '../../Services/getPokemonService'; // Importing getAllPokemon function from getPokemonService
 import PokemonList from '../PokemonCard/PokemonList'; // Importing PokemonList component
 import './Main.css'; // Importing CSS for the Main component
 
@@ -28,9 +28,9 @@ const Main = () => {
         value={searchQuery} // Value of searchQuery state
         onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery state on input change
       />
-      <PokemonList pokemons={filteredPokemons.slice(0, 20)} /> 
+      <PokemonList pokemons={filteredPokemons.slice(0, 20)} />
     </div>
   );
 };
 
-export default Main; 
+export default Main;

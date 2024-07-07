@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // Importing React and useState hook
-import login from '../../services/loginUserService'; // Importing login function from loginUserService
+import login from '../../Services/loginUserService'; // Importing login function from loginUserService
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook from react-router-dom
-import { useAuth } from '../../services/authUserService'; // Importing useAuth hook from authUserService
+import { useAuth } from '../../Services/authUserService'; // Importing useAuth hook from authUserService
 import './Login.css'; // Importing CSS for the Login component
 
 function LoginForm() {
@@ -18,9 +18,7 @@ function LoginForm() {
       // If login is successful
       console.log('User logged in:', result.user); // Log the user details to the console
       alert(
-        'Welcome ' +
-          result.user.get('username') +
-          '! You are now logged in!'
+        'Welcome ' + result.user.get('username') + '! You are now logged in!'
       ); // Show a welcome alert
       setIsAuthenticated(true); // Set authentication state to true
       navigate('/profile'); // Navigate to the profile page
@@ -33,9 +31,8 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className='login-form'>
       {' '}
-      
       <div className='form-group'>
-        <label htmlFor='email'>Email: </label> 
+        <label htmlFor='email'>Email: </label>
         <input
           type='email'
           id='email'
@@ -44,7 +41,7 @@ function LoginForm() {
           onChange={(e) => setEmail(e.target.value)} // Update email state on change
           required // Making email input required
         />
-        <label htmlFor='password'>Password: </label> 
+        <label htmlFor='password'>Password: </label>
         <input
           type='password'
           id='password'
@@ -56,11 +53,9 @@ function LoginForm() {
       </div>
       <button type='submit' className='submit-button'>
         {'Submit'}
-       
       </button>
     </form>
   );
 }
 
 export default LoginForm;
-

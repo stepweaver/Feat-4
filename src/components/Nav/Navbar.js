@@ -1,6 +1,6 @@
 import React from 'react'; // Importing React
 import { Link } from 'react-router-dom'; // Importing Link component from react-router-dom for navigation
-import { useAuth } from '../../services/authUserService'; // Importing useAuth hook from authUserService
+import { useAuth } from '../../Services/authUserService'; // Importing useAuth hook from authUserService
 import './Navbar.css'; // Importing CSS for the Navbar component
 
 const Navbar = () => {
@@ -50,4 +50,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Components from './components/Components';
+import Components from './Components/Components';
 import * as ENV from './environments';
 import Parse from 'parse';
 import './index.css';
