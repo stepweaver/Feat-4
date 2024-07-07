@@ -6,11 +6,9 @@ import Login from './Login/Login';
 import Register from './Register/Register';
 import About from './About/About';
 import Profile from './Profile/Profile';
-import { AuthProvider } from '../Services/authUserService';
 
 const Components = () => {
   return (
-    <AuthProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -21,7 +19,6 @@ const Components = () => {
           <Route path='/profile' element={<Profile />} />
         </Routes>
       </Router>
-    </AuthProvider>
   );
 };
 

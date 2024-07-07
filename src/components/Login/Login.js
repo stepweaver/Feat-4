@@ -1,14 +1,14 @@
 import React, { useState } from 'react'; // Importing React and useState hook
 import login from '../../Services/loginUserService'; // Importing login function from loginUserService
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook from react-router-dom
-import { useAuth } from '../../Services/authUserService'; // Importing useAuth hook from authUserService
+import { loginUser } from '../../Services/authService'; // Importing loginUser hook from authService
 import './Login.css'; // Importing CSS for the Login component
 
 function LoginForm() {
   const [email, setEmail] = useState(''); // State for storing email input
   const [password, setPassword] = useState(''); // State for storing password input
   const navigate = useNavigate(); // Hook for navigating programmatically
-  const { setIsAuthenticated } = useAuth(); // Getting setIsAuthenticated function from useAuth hook
+  const { setIsAuthenticated } = loginUser(); // Getting setIsAuthenticated function from loginUser hook
 
   // Function to handle form submission
   const handleSubmit = async (event) => {

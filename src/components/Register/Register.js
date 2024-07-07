@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; // Importing React and useState hook
-import { registerUser } from '../../Services/registerUserService'; // Importing registerUser function from registerUserService
+import { createUser } from '../../Services/authService'; // Importing createUser function from authService
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook from react-router-dom
 import './Register.css'; // Importing CSS for the Register component
 
@@ -13,8 +13,8 @@ function RegisterForm() {
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
-    registerUser(username, email, password, repeatPass).then((user) => {
-      // Call registerUser function with input values
+    createUser(username, email, password, repeatPass).then((user) => {
+      // Call createUser function with input values
       console.log('User Registered', user); // Log the registered user details to the console
       alert('Right on! You are now registered!'); // Show a registration success alert
       navigate('/login'); // Navigate to the login page
