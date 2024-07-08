@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { logoutUser, checkUser } from '../../Services/authService'; 
+import { logoutUser, checkUser } from '../../Services/authService';
 import './Navbar.css';
 
 const Navbar = () => {
-  const isAuthenticated = checkUser();
+  const [isAuthenticated, setIsAuthenticated] = useState(checkUser());
+
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsAuthenticated(checkUser());
+    };
+    checkAuth();
+    window.addEventListener('authChange', checkAuth);
+    return () => {
+      window.removeEventListener('authChange', checkAuth);
+    };
+  }, []);
 
   const handleLogout = (e) => {
     e.preventDefault();
     logoutUser().then(() => {
-      window.location.href = '/';
+      setIsAuthenticated(false);
     });
   };
 

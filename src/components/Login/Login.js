@@ -35,7 +35,6 @@ const Login = () => {
         if (userLoggedIn) {
           alert(`${userLoggedIn.get('email')} has been logged in successfully!`);
           navigate('/'); // TODO: Adjust to protected route component
-          window.location.href = '/'; // Triggering a full page reload to update the Navbar
         }
       });
     }
