@@ -12,7 +12,7 @@ const Components = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Main />} />
+          <Route path='/' element={<Main />} /> // TODO: Add ProtectedRoute
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/about' element={<About />} />
