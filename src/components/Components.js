@@ -7,6 +7,7 @@ import Register from './Register/Register';
 import About from './About/About';
 import Profile from './Profile/Profile';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import Unauthorized from './Unauthorized/Unauthorized';
 
 const Components = () => {
   return (
@@ -18,6 +19,7 @@ const Components = () => {
           <Route path='/register' element={<Register />} />
           <Route path='/about' element={<About />} />
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path='/unauthorized' element={<Unauthorized />} />
         </Routes>
       </Router>
   );
