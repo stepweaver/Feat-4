@@ -1,33 +1,31 @@
-import React, { useState } from 'react'; // Importing React and useState hook
+import React, { useState } from 'react';
 import {
   catchPokemon,
   releasePokemon
-} from '../../Services/catchPokemonService'; // Importing catchPokemon and releasePokemon functions from catchPokemonService
-import './PokemonCard.css'; // Importing CSS for the PokemonCard component
+} from '../../Services/catchPokemonService';
+import './PokemonCard.css';
 
 const PokemonCard = ({ pokemon }) => {
-  const [isCaught, setIsCaught] = useState(false); // State for tracking if the Pokemon is caught
-  const [isFlipped, setIsFlipped] = useState(false); // State for tracking if the card is flipped
+  const [isCaught, setIsCaught] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  // Function to handle catching or releasing the Pokemon
   const handleCatchChange = async () => {
-    setIsCaught(!isCaught); // Toggle the isCaught state
+    setIsCaught(!isCaught);
     if (!isCaught) {
-      await catchPokemon(pokemon); // If not caught, catch the Pokemon
+      await catchPokemon(pokemon);
     } else {
-      await releasePokemon(pokemon); // If caught, release the Pokemon
+      await releasePokemon(pokemon);
     }
   };
 
-  // Function to handle flipping the card
   const flipCard = () => {
-    setIsFlipped(!isFlipped); // Toggle the isFlipped state
+    setIsFlipped(!isFlipped);
   };
 
   return (
     <div
-      className={`pokemon-card ${isFlipped ? 'flipped' : ''}`} // Apply flipped class if isFlipped is true
-      onClick={flipCard} // Set flipCard as the click handler
+      className={`pokemon-card ${isFlipped ? 'flipped' : ''}`}
+      onClick={flipCard}
     >
       <img src={pokemon.image} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
@@ -37,7 +35,7 @@ const PokemonCard = ({ pokemon }) => {
             {pokemon.types.map((type, index) => (
               <span
                 key={index}
-                className={`pokemon-types ${type.toLowerCase().trim()}`} // Apply type-specific class
+                className={`pokemon-types ${type.toLowerCase().trim()}`}
               >
                 {type}
               </span>
@@ -49,10 +47,10 @@ const PokemonCard = ({ pokemon }) => {
           <p>Attack - {pokemon.attack}</p>
           <p>Defense - {pokemon.defense}</p>
           <input
-            type='checkbox' // TODO: Prevent card flip when checking the box.
-            checked={isCaught} // Set checkbox state to isCaught
-            onChange={handleCatchChange} // Set handleCatchChange as the change handler
-            id={`catch-${pokemon.name}`} // Set unique id for the checkbox
+            type='checkbox'
+            checked={isCaught}
+            onChange={handleCatchChange}
+            id={`catch-${pokemon.name}`}
           />
           <label htmlFor={`catch-${pokemon.name}`}>
             {isCaught ? 'Caught' : 'Catch'}

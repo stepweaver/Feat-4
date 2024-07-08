@@ -6,17 +6,18 @@ import Login from './Login/Login';
 import Register from './Register/Register';
 import About from './About/About';
 import Profile from './Profile/Profile';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 const Components = () => {
   return (
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Main />} /> // TODO: Add ProtectedRoute
+          <Route path='/' element={<ProtectedRoute><Main /></ProtectedRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/about' element={<About />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
       </Router>
   );

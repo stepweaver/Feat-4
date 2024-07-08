@@ -4,7 +4,7 @@ import Parse from 'parse';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = Parse.User.current() !== null;
-  return isAuthenticated ? children : <Navigate to="/" />;
+  return isAuthenticated ? children : <Navigate to='/unauthorized' />;
 };
 
 export default ProtectedRoute;
