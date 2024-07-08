@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react'; // Importing React, useEffect, and useState hooks
-import Parse from 'parse'; // Importing Parse for interacting with Parse backend
-import PokemonCard from '../PokemonCard/PokemonCard'; // Importing PokemonCard component
+import React, { useEffect, useState } from 'react';
+import Parse from 'parse';
+import PokemonCard from '../PokemonCard/PokemonCard';
 import CommentForm from '../CommentForm/CommentForm';
 import { addComment } from '../../Services/addCommentService';
 import { getAllComments } from '../../Services/getCommentService';
 import './Profile.css';
 
 const Profile = () => {
-  const [username, setUsername] = useState(''); // State for storing the username
-  const [caughtPokemons, setCaughtPokemons] = useState([]); // State for storing the list of caught Pokemon
+  const [username, setUsername] = useState('');
+  const [caughtPokemons, setCaughtPokemons] = useState([]);
   const [trainerBio, setTrainerBio] = useState('');
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    // Function to fetch profile data
     const fetchProfile = async () => {
-      const query = new Parse.Query('Profile'); // Creating a new query for the 'Profile' class
-      query.equalTo('user', Parse.User.current()); // Filtering the query to match the current user
-      const profile = await query.first(); // Fetching the first matching profile
+      const query = new Parse.Query('Profile');
+      query.equalTo('user', Parse.User.current());
+      const profile = await query.first();
       if (profile) {
-        setUsername(Parse.User.current().get('username')); // Setting the username state
-        setCaughtPokemons(profile.get('caughtPokemon') || []); // Setting the caughtPokemons state
+        setUsername(Parse.User.current().get('username'));
+        setCaughtPokemons(profile.get('caughtPokemon') || []);
         setTrainerBio(profile.get('trainerBio') || 'I am a Pokemon Trainer!');
       }
     };
 
-    fetchProfile(); // Calling the fetchProfile function
-  }, []); // Empty dependency array ensures this runs only once after initial render
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
-    const fetchComments = async (commentText) => {
+    const fetchComments = async () => {
       const userId = Parse.User.current().id;
       const comments = await getAllComments(userId);
       setComments(comments);
@@ -44,7 +43,7 @@ const Profile = () => {
       setComments([
         ...comments,
         { comment: commentText, user: Parse.User.current() }
-      ]); // Update comments state with new comment object containing text and user info (current user).
+      ]);
     }
   };
 
@@ -55,7 +54,7 @@ const Profile = () => {
       <h2>Caught Pokemon</h2>
       <div className='pokemon-card'>
         {caughtPokemons.map((pokemon, index) => (
-          <PokemonCard key={index} pokemon={pokemon} /> // Rendering a PokemonCard for each caught Pokemon
+          <PokemonCard key={index} pokemon={pokemon} />
         ))}
       </div>
       <div className='comment-form'>
@@ -73,7 +72,7 @@ const Profile = () => {
   );
 };
 
-export default Profile; // Exporting Profile component as default export
+export default Profile;
 
 // TODO: Include update profile option.
 // TODO: Include create a pokemon option. Write to Pokemon class.

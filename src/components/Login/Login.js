@@ -1,61 +1,56 @@
-import React, { useState } from 'react'; // Importing React and useState hook
-import login from '../../Services/loginUserService'; // Importing login function from loginUserService
-import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook from react-router-dom
-import { loginUser } from '../../Services/authService'; // Importing loginUser hook from authService
-import './Login.css'; // Importing CSS for the Login component
+import React, { useEffect, useState } from 'react'; 
+import { loginUser, checkUser } from '../../Services/authService'; 
+import LoginForm from './LoginForm';
+import { useNavigate } from 'react-router-dom'; 
+import './Login.css'; 
 
-function LoginForm() {
-  const [email, setEmail] = useState(''); // State for storing email input
-  const [password, setPassword] = useState(''); // State for storing password input
-  const navigate = useNavigate(); // Hook for navigating programmatically
-  const { setIsAuthenticated } = loginUser(); // Getting setIsAuthenticated function from loginUser hook
+const Login = () => {
+  const navigate = useNavigate();
 
-  // Function to handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    const result = await login(email, password); // Call the login function with email and password
-    if (result.success) {
-      // If login is successful
-      console.log('User logged in:', result.user); // Log the user details to the console
-      alert(
-        'Welcome ' + result.user.get('username') + '! You are now logged in!'
-      ); // Show a welcome alert
-      setIsAuthenticated(true); // Set authentication state to true
-      navigate('/profile'); // Navigate to the profile page
-    } else {
-      console.error('Error while logging in:', result.error); // Log the error if login fails
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    password: ''
+  });
+
+  useEffect(() => {
+    if (checkUser()) {
+      alert('You are already logged in');
+      navigate('/'); // TODO: double-check what will be the protected route component?
     }
-    console.log('Login submitted for:', email); // Log the email for which login was submitted
+  }, [navigate]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setCurrentUser({
+      ...currentUser,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (currentUser.email && currentUser.password) {
+      loginUser(currentUser).then((userLoggedIn) => {
+        if (userLoggedIn) {
+          alert(`${userLoggedIn.get('email')} has been logged in successfully!`);
+          navigate('/'); // TODO: Adjust to protected route component
+          window.location.href = '/'; // Triggering a full page reload to update the Navbar
+        }
+      });
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className='login-form'>
-      {' '}
-      <div className='form-group'>
-        <label htmlFor='email'>Email: </label>
-        <input
-          type='email'
-          id='email'
-          className='form-input'
-          value={email} // Value of email state
-          onChange={(e) => setEmail(e.target.value)} // Update email state on change
-          required // Making email input required
-        />
-        <label htmlFor='password'>Password: </label>
-        <input
-          type='password'
-          id='password'
-          className='form-input'
-          value={password} // Value of password state
-          onChange={(e) => setPassword(e.target.value)} // Update password state on change
-          required // Making password input required
-        />
-      </div>
-      <button type='submit' className='submit-button'>
-        {'Submit'}
-      </button>
-    </form>
+    <div>
+      <LoginForm 
+        user={currentUser}
+        isLogin={true}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+    </div>
   );
-}
+};
 
-export default LoginForm;
+export default Login;

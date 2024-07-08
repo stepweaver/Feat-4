@@ -4,8 +4,10 @@ import Parse from 'parse';
 export const createUser = (newUser) => {
   const user = new Parse.User();
 
-  user.set('username', newUser.username);
+  user.set('firstName', newUser.firstName);
+  user.set('lastName', newUser.lastName);
   user.set('email', newUser.email);
+  user.set('username', newUser.email);
   user.set('password', newUser.password);
 
   console.log('User: ', user);
@@ -20,7 +22,7 @@ export const createUser = (newUser) => {
 
 // used in login component
 export const loginUser = (currUser) => {
-  return Parse.User.logIn(currUser.username, currUser.password)
+  return Parse.User.logIn(currUser.email, currUser.password)
     .then((user) => {
       console.log('Logged in user: ', user);
       return user;
@@ -31,17 +33,18 @@ export const loginUser = (currUser) => {
 };
 
 // used in logout component
-export const logoutUser = (onLogout) => {
-  Parse.User.logOut()
-    .then(() => {
-      localStorage.clear();
-      if (typeof onLogout === 'function') {
-        onLogout();
-      }
-    })
-    .catch((error) => {
-      alert(`Error during logout: ${error.message}`);
-    });
+export const logoutUser = () => {
+  return new Promise((resolve, reject) => {
+    Parse.User.logOut()
+      .then(() => {
+        localStorage.clear();
+        resolve(); 
+      })
+      .catch((error) => {
+        alert(`Error during logout: ${error.message}`);
+        reject(error); 
+      });
+  });
 };
 
 export const checkUser = () => {
