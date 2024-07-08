@@ -2,7 +2,7 @@
 
 This interactive Pokedex project allows users to register, log in, and 'catch' Pokémon, displaying the caught Pokémon in their profiles. Users can also leave comments on other users' profiles, fostering a community of Pokémon enthusiasts.This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Features!
+## Features
 
 1. User Registration and Login:
 
