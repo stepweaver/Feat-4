@@ -6,8 +6,8 @@ import {
 import "./PokemonCard.css";
 
 const PokemonCard = ({ pokemon }) => {
-  const [isCaught, setIsCaught] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isCaught, setIsCaught] = useState(false); // State to track if Pokemon is caught
+  const [isFlipped, setIsFlipped] = useState(false); // State to track if card is flipped
 
   useEffect(() => {
     const caughtPokemon =
@@ -21,14 +21,14 @@ const PokemonCard = ({ pokemon }) => {
   const handleCatchChange = async () => {
     setIsCaught(!isCaught);
     if (!isCaught) {
-      await catchPokemon(pokemon);
+      await catchPokemon(pokemon); // Catch the Pokemon if not caught
     } else {
-      await releasePokemon(pokemon);
+      await releasePokemon(pokemon); // Release the Pokemon if caught
     }
   };
 
   const flipCard = () => {
-    setIsFlipped(!isFlipped);
+    setIsFlipped(!isFlipped); // Toggle the card flip state
   };
 
   return (
@@ -70,5 +70,5 @@ const PokemonCard = ({ pokemon }) => {
   );
 };
 
-export default PokemonCard;
+export default PokemonCard; // Export the PokemonCard component
 
