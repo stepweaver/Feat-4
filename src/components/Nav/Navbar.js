@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { checkUser, logoutUser } from '../../Services/authService';
+import { checkUser, logoutUser } from '../../Services/authService'; 
 import Parse from 'parse';
-import './Navbar.css';
+import './Navbar.css'; 
 
 const Navbar = () => {
-  const isAuthenticated = checkUser();
-  const navigate = useNavigate();
+  const isAuthenticated = checkUser(); // Check if the user is authenticated
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const handleLogout = (e) => {
     e.preventDefault();
-    logoutUser(navigate);
+    logoutUser(navigate); // Handle user logout and navigate
   } 
 
   return (
@@ -19,7 +19,7 @@ const Navbar = () => {
         <li className='navbar-item'>
           <Link to='/'>Home</Link>
         </li>
-        {isAuthenticated ? (
+        {isAuthenticated ? ( // Conditionally render links based on authentication status
           <>
             <li className='navbar-item'>
               <Link to='/profile'>Profile</Link>
@@ -51,4 +51,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; // Export the Navbar component

@@ -1,37 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   catchPokemon,
-  releasePokemon
-} from '../../Services/catchPokemonService';
-import './PokemonCard.css';
+  releasePokemon,
+} from "../../Services/catchPokemonService";
+import "./PokemonCard.css";
 
 const PokemonCard = ({ pokemon }) => {
-  const [isCaught, setIsCaught] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isCaught, setIsCaught] = useState(false); // State to track if Pokemon is caught
+  const [isFlipped, setIsFlipped] = useState(false); // State to track if card is flipped
+
+  useEffect(() => {
+    const caughtPokemon =
+      JSON.parse(localStorage.getItem("caughtPokemon")) || [];
+    const isPokemonCaught = caughtPokemon.some(
+      (p) => p.objectId === pokemon.objectId
+    );
+    setIsCaught(isPokemonCaught);
+  }, [pokemon]);
 
   const handleCatchChange = async () => {
     setIsCaught(!isCaught);
     if (!isCaught) {
-      await catchPokemon(pokemon);
+      await catchPokemon(pokemon); // Catch the Pokemon if not caught
     } else {
-      await releasePokemon(pokemon);
+      await releasePokemon(pokemon); // Release the Pokemon if caught
     }
   };
 
   const flipCard = () => {
-    setIsFlipped(!isFlipped);
+    setIsFlipped(!isFlipped); // Toggle the card flip state
   };
 
   return (
     <div
-      className={`pokemon-card ${isFlipped ? 'flipped' : ''}`}
+      className={`pokemon-card ${isFlipped ? "flipped" : ""}`}
       onClick={flipCard}
     >
       <img src={pokemon.image} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
-      <div className={isFlipped ? 'content flipped' : 'content'}>
-        <div className='pokemon-card-front'>
-          <div className='pokemon-types-container'>
+      <div className={isFlipped ? "content flipped" : "content"}>
+        <div className="pokemon-card-front">
+          <div className="pokemon-types-container">
             {pokemon.types.map((type, index) => (
               <span
                 key={index}
@@ -42,18 +51,18 @@ const PokemonCard = ({ pokemon }) => {
             ))}
           </div>
         </div>
-        <div className='pokemon-card-back'>
+        <div className="pokemon-card-back">
           <p>hp - {pokemon.hp}</p>
           <p>Attack - {pokemon.attack}</p>
           <p>Defense - {pokemon.defense}</p>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={isCaught}
             onChange={handleCatchChange}
             id={`catch-${pokemon.name}`}
           />
           <label htmlFor={`catch-${pokemon.name}`}>
-            {isCaught ? 'Caught' : 'Catch'}
+            {isCaught ? "Caught" : "Catch"}
           </label>
         </div>
       </div>
@@ -61,6 +70,5 @@ const PokemonCard = ({ pokemon }) => {
   );
 };
 
-export default PokemonCard;
+export default PokemonCard; // Export the PokemonCard component
 
-// TODO: 'Caught' status doesn't persist after refreshing page. Need to make status persist for the logged in user.

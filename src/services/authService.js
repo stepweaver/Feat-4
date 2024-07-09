@@ -6,6 +6,7 @@ export const createUser = async (newUser) => {
   user.set("firstName", newUser.firstName);
   user.set("lastName", newUser.lastName);
   user.set("email", newUser.email);
+
   user.set("username", newUser.email); // Set username to email
   user.set("password", newUser.password);
 
