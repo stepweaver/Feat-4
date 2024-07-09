@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'; 
-import { loginUser, checkUser } from '../../Services/authService'; 
-import LoginForm from './LoginForm';
-import { useNavigate } from 'react-router-dom'; 
-import './Login.css'; 
+import React, { useEffect, useState } from "react";
+import { loginUser, checkUser } from "../../Services/authService";
+import LoginForm from "./LoginForm";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const [currentUser, setCurrentUser] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   useEffect(() => {
     if (checkUser()) {
-      alert('You are already logged in');
-      navigate('/'); // TODO: double-check what will be the protected route component?
+      alert("You are already logged in");
+      navigate("/"); // Navigate to the protected route if user is already logged in
     }
   }, [navigate]);
 
@@ -24,7 +24,7 @@ const Login = () => {
     const { name, value } = e.target;
     setCurrentUser({
       ...currentUser,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -33,8 +33,10 @@ const Login = () => {
     if (currentUser.email && currentUser.password) {
       loginUser(currentUser).then((userLoggedIn) => {
         if (userLoggedIn) {
-          alert(`${userLoggedIn.get('email')} has been logged in successfully!`);
-          navigate('/'); // TODO: Adjust to protected route component
+          alert(
+            `${userLoggedIn.get("email")} has been logged in successfully!`
+          );
+          navigate("/"); // Navigate to the protected route after successful login
         }
       });
     }
@@ -42,7 +44,7 @@ const Login = () => {
 
   return (
     <div>
-      <LoginForm 
+      <LoginForm
         user={currentUser}
         isLogin={true}
         onChange={handleChange}
@@ -52,4 +54,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login; // Export the Login component
