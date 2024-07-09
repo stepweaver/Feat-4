@@ -1,37 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import Parse from 'parse';
-import PokemonCard from '../PokemonCard/PokemonCard'; 
-import CommentForm from '../CommentForm/CommentForm'; 
-import { addComment } from '../../Services/addCommentService'; 
-import { getAllComments } from '../../Services/getCommentService'; 
-import './Profile.css'; 
+import { useNavigate } from 'react-router-dom';
+import PokemonCard from '../PokemonCard/PokemonCard';
+import CommentForm from '../CommentForm/CommentForm';
+import { addComment } from '../../Services/addCommentService';
+import { getAllComments } from '../../Services/getCommentService';
+import { checkUser } from '../../Services/authService';
+import './Profile.css';
 
 const Profile = () => {
   const [username, setUsername] = useState(''); // State to store the username
-  const [caughtPokemons, setCaughtPokemons] = useState([]); // State to store caught Pokemon
-  const [trainerBio, setTrainerBio] = useState(''); // State to store trainer bio
-  const [comments, setComments] = useState([]); // State to store comments
+  const [caughtPokemons, setCaughtPokemons] = useState([]); // State to store the caught Pokémon
+  const [trainerBio, setTrainerBio] = useState(''); // State to store the trainer bio
+  const [comments, setComments] = useState([]); // State to store the comments
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!checkUser()) {
+      navigate('/login');
+      return;
+    }
+
     const fetchProfile = async () => {
       const query = new Parse.Query('Profile');
       query.equalTo('user', Parse.User.current());
       const profile = await query.first();
       if (profile) {
-        setUsername(Parse.User.current().get('username')); // Set username
-        setCaughtPokemons(profile.get('caughtPokemon') || []); // Set caught Pokemon
-        setTrainerBio(profile.get('trainerBio') || 'I am a Pokemon Trainer!'); // Set trainer bio
+        setUsername(Parse.User.current().get('username')); // Set the username
+        setCaughtPokemons(profile.get('caughtPokemon') || []); // Set the caught Pokémon
+        setTrainerBio(profile.get('trainerBio') || 'I am a Pokemon Trainer!'); // Set the trainer bio
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
+    if (!checkUser()) {
+      return;
+    }
+
     const fetchComments = async () => {
       const userId = Parse.User.current().id;
       const comments = await getAllComments(userId);
-      setComments(comments); // Set comments
+      setComments(comments); // Set the comments
     };
 
     fetchComments();
@@ -43,7 +55,7 @@ const Profile = () => {
       setComments([
         ...comments,
         { comment: commentText, user: Parse.User.current() }
-      ]); 
+      ]);
     }
   };
 
@@ -58,7 +70,8 @@ const Profile = () => {
         ))}
       </div>
       <div className='comment-form'>
-        <CommentForm onSubmitComment={handleSubmitComment} /> {/* Comment form */}
+        {/* Comment Form */}
+        <CommentForm onSubmitComment={handleSubmitComment} />
         <div className='comment'>
           {comments.map((comment, index) => (
             <span key={index} className='comment'>
@@ -74,10 +87,7 @@ const Profile = () => {
 
 export default Profile; // Export the Profile component
 
-
 // TODO: Include update profile option.
 // TODO: Include create a pokemon option. Write to Pokemon class.
 // TODO: Add css for profile page.
 // TODO: Need a way for registered users to view other user's profiles. Only registered users can leave comments.
-// TODO: Can't release pokemon from profile. 'Caught' status doesn't persist.
-
