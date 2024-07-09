@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { createUser, checkUser } from '../../Services/authService';
-import RegisterForm from './RegisterForm';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { createUser, checkUser } from "../../Services/authService"; 
+import RegisterForm from "./RegisterForm"; 
+import { useNavigate } from "react-router-dom"; 
 
 const Register = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const [newUser, setNewUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  })
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  }); // State to store new user details
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication status
 
   useEffect(() => {
     if (checkUser()) {
-      alert('You are already logged in');
-      navigate('/'); // TODO: double-check what will be the protected route component?
+      alert("You are already logged in");
+      navigate("/"); // Navigate to the home page if already logged in
     }
   }, [navigate]);
 
@@ -26,41 +26,43 @@ const Register = () => {
     if (newUser && isAuthenticated) {
       createUser(newUser).then((userCreated) => {
         if (userCreated) {
-          alert(`${userCreated.get('firstName')} ${userCreated.get('lastName')} has been registered successfully!`);
-          navigate('/'); // TODO: double-check what will be the protected route component?
+          alert(
+            `${userCreated.get("firstName")} ${userCreated.get(
+              "lastName"
+            )} has been registered successfully!`
+          );
+          navigate("/"); // Navigate to the home page after successful registration
         }
-        setIsAuthenticated(false);
-      })
+        setIsAuthenticated(false); // Reset authentication status
+      });
     }
   }, [newUser, isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target);
     const { name, value: newValue } = e.target;
-    console.log(name, newValue);
 
     setNewUser({
       ...newUser,
-      [name]: newValue
-    })
-  }
+      [name]: newValue,
+    }); // Update new user state with form input values
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted: ', e.target);
-    setIsAuthenticated(true);
-  }
+    setIsAuthenticated(true); // Set authentication status to true to trigger user creation
+  };
 
   return (
     <div>
-      <RegisterForm 
+      <RegisterForm
         user={newUser}
         onChange={handleChange}
         onSubmit={handleSubmit}
-      />
+      />{" "}
+      {/* Render the registration form */}
     </div>
-  )
-}
+  );
+};
 
-export default Register;
+export default Register; // Export the Register component
