@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Main from './Main/Main';
 import Navbar from './Nav/Navbar';
 import Login from './Login/Login';
@@ -20,6 +20,7 @@ const Components = () => {
           <Route path='/about' element={<About />} />
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/unauthorized' element={<Unauthorized />} />
+          <Route path='*' element={<Navigate to='/login' replace />} />
         </Routes>
       </Router>
   );
