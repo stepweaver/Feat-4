@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   catchPokemon,
   releasePokemon,
@@ -8,6 +8,15 @@ import "./PokemonCard.css";
 const PokemonCard = ({ pokemon }) => {
   const [isCaught, setIsCaught] = useState(false); // State to track if Pokemon is caught
   const [isFlipped, setIsFlipped] = useState(false); // State to track if card is flipped
+
+  useEffect(() => {
+    const caughtPokemon =
+      JSON.parse(localStorage.getItem("caughtPokemon")) || [];
+    const isPokemonCaught = caughtPokemon.some(
+      (p) => p.objectId === pokemon.objectId
+    );
+    setIsCaught(isPokemonCaught);
+  }, [pokemon]);
 
   const handleCatchChange = async () => {
     setIsCaught(!isCaught);
