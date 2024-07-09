@@ -6,28 +6,27 @@ export const createUser = async (newUser) => {
   user.set("firstName", newUser.firstName);
   user.set("lastName", newUser.lastName);
   user.set("email", newUser.email);
-
-  user.set("username", newUser.email); // Set username to email
+  user.set("username", newUser.email);
   user.set("password", newUser.password);
 
   console.log("User: ", user);
   try {
-    const newUserSaved = await user.signUp(); // Sign up the new user
+    const newUserSaved = await user.signUp();
     const Profile = Parse.Object.extend("Profile");
     const profile = new Profile();
-    profile.set("user", newUserSaved); // Link profile to the new user
-    profile.set("caughtPokemon", []); // Initialize caught Pokemon array
-    await profile.save(); // Save the profile object to the Parse server
+    profile.set("user", newUserSaved);
+    profile.set("caughtPokemon", []);
+    await profile.save();
     return newUserSaved;
   } catch (error) {
-    alert(`Error: ${error.message}`); // Alert the user if there's an error
+    alert(`Error: ${error.message}`);
   }
 };
 
 // Used in login component
 export const loginUser = async (currUser) => {
   try {
-    const user = await Parse.User.logIn(currUser.email, currUser.password); // Log in the user
+    const user = await Parse.User.logIn(currUser.email, currUser.password);
     console.log("Logged in user: ", user);
 
     // Fetch the user's profile and caught Pokémon
@@ -40,7 +39,7 @@ export const loginUser = async (currUser) => {
     localStorage.setItem("caughtPokemon", JSON.stringify(caughtPokemon));
     return user;
   } catch (error) {
-    alert(`Error: ${error.message}`); // Alert the user if there's an error
+    alert(`Error: ${error.message}`);
   }
 };
 
