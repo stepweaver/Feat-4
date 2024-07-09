@@ -1,4 +1,5 @@
 import Parse from 'parse';
+import { useNavigate } from 'react-router-dom';
 
 // used in register component
 export const createUser = (newUser) => {
@@ -33,21 +34,15 @@ export const loginUser = (currUser) => {
 };
 
 // used in logout component
-export const logoutUser = () => {
-  return new Promise((resolve, reject) => {
-    Parse.User.logOut()
-      .then(() => {
-        localStorage.clear();
-        resolve(); 
-      })
-      .catch((error) => {
-        alert(`Error during logout: ${error.message}`);
-        reject(error); 
-      });
-  });
-};
+export const logoutUser = (navigate) => {
+  return Parse.User.logOut().then(() => {
+    navigate('/unauthorized');
+  }).catch((error) => {
+    alert(`Error: ${error.message}`);
+  })
+}
 
 export const checkUser = () => {
   const currentUser = Parse.User.current();
-  return currentUser ? currentUser.authenticated() : false;
+  return !!currentUser;
 };
