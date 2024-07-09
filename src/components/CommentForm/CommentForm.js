@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
+// Define a functional component CommentForm that takes onSubmitComment as a prop
 const CommentForm = ({ onSubmitComment }) => {
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(''); // Initialize comment state
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmitComment(comment);
-    setComment('');
+    e.preventDefault(); // Prevent default form submission behavior
+    onSubmitComment(comment); // Call onSubmitComment with current comment
+    setComment(''); // Reset comment state
   };
 
   return (
@@ -21,4 +22,4 @@ const CommentForm = ({ onSubmitComment }) => {
   );
 };
 
-export default CommentForm;
+export default CommentForm; // Export the CommentForm component
