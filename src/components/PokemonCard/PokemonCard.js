@@ -11,15 +11,15 @@ const PokemonCard = ({ pokemon }) => {
 
   useEffect(() => {
     const caughtPokemon =
-      JSON.parse(localStorage.getItem("caughtPokemon")) || [];
+      JSON.parse(localStorage.getItem("caughtPokemon")) || []; // Retrieve caught Pokemon from local storage
     const isPokemonCaught = caughtPokemon.some(
       (p) => p.objectId === pokemon.objectId
-    );
-    setIsCaught(isPokemonCaught);
+    ); // Check if the current Pokemon is caught
+    setIsCaught(isPokemonCaught); // Set isCaught state based on local storage data
   }, [pokemon]);
 
   const handleCatchChange = async () => {
-    setIsCaught(!isCaught);
+    setIsCaught(!isCaught); // Toggle the isCaught state
     if (!isCaught) {
       await catchPokemon(pokemon); // Catch the Pokemon if not caught
     } else {
@@ -28,7 +28,7 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   const flipCard = () => {
-    setIsFlipped(!isFlipped); // Toggle the card flip state
+    setIsFlipped(!isFlipped); // Toggle the isFlipped state
   };
 
   return (
