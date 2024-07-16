@@ -8,6 +8,8 @@ import FriendsList from '../Friends/FriendsList';
 import { addComment, getAllComments } from '../../Services/commentService';
 import './Profile.css';
 
+// TODO: FriendsList component is not yet implemented. Not working as expected.
+
 const Profile = () => {
   const { id } = useParams();
   const [username, setUsername] = useState('');
