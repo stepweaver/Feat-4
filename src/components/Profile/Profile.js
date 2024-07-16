@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Parse from 'parse';
 import { useNavigate, useParams } from 'react-router-dom';
-import PokemonCard from '../PokemonCard/PokemonCard';
+import PokemonCard from '../Pokemon/PokemonCard';
 import CommentForm from '../Comments/CommentForm';
-import PokemonList from '../PokemonCard/PokemonList';
+import PokemonList from '../Pokemon/PokemonList';
 import FriendsList from '../Friends/FriendsList';
 import { addComment, getAllComments } from '../../Services/commentService';
 import './Profile.css';
