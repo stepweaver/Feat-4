@@ -18,7 +18,7 @@ const Components = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/about' element={<About />} />
-          <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path='/profile/:id' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/unauthorized' element={<Unauthorized />} />
           <Route path='*' element={<Navigate to='/login' replace />} />
         </Routes>
