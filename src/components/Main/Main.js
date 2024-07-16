@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getAllPokemon } from '../../Services/getPokemonService'; 
-import PokemonList from '../PokemonCard/PokemonList'; 
-import './Main.css'; 
+import { getAllPokemon } from '../../Services/getPokemonService';
+import PokemonList from '../Pokemon/PokemonList';
+import './Main.css';
 
 const Main = () => {
   const [pokemons, setPokemons] = useState([]); // State to store all Pokemon
@@ -26,7 +26,8 @@ const Main = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <PokemonList pokemons={filteredPokemons.slice(0, 20)} /> {/* Display filtered Pokemon list */}
+      <PokemonList pokemons={filteredPokemons.slice(0, 20)} />{' '}
+      {/* Display filtered Pokemon list */}
     </div>
   );
 };
