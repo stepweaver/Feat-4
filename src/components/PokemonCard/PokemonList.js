@@ -1,8 +1,12 @@
 import React from 'react';
 import PokemonCard from './PokemonCard';
 
-const PokemonList = ({ pokemons }) => {
+const PokemonList = ({ pokemons = [] }) => {
   
+  if (!pokemons) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='pokemon-list'>
       {pokemons.map(
@@ -17,4 +21,4 @@ const PokemonList = ({ pokemons }) => {
   );
 };
 
-export default PokemonList; 
+export default PokemonList;
