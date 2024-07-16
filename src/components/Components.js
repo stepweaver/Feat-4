@@ -20,7 +20,7 @@ const Components = () => {
           <Route path='/about' element={<About />} />
           <Route path='/profile/:id' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/unauthorized' element={<Unauthorized />} />
-          <Route path='*' element={<Navigate to='/login' replace />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       </Router>
   );

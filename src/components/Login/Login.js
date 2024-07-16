@@ -12,13 +12,6 @@ const Login = () => {
     password: "",
   });
 
-  useEffect(() => {
-    if (checkUser()) {
-      alert("You are already logged in");
-      navigate("/"); // Navigate to the protected route if user is already logged in
-    }
-  }, [navigate]);
-
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;

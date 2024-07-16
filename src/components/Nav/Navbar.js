@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { checkUser, logoutUser } from '../../Services/authService'; 
+import { checkUser, logoutUser } from '../../Services/authService';
 import Parse from 'parse';
 import './Navbar.css'; 
 
 const Navbar = () => {
   const isAuthenticated = checkUser(); // Check if the user is authenticated
   const navigate = useNavigate(); // Hook to navigate programmatically
+  const userId = isAuthenticated ? Parse.User.current().id : null; // Get the current user ID
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const Navbar = () => {
         {isAuthenticated ? ( // Conditionally render links based on authentication status
           <>
             <li className='navbar-item'>
-              <Link to='/profile'>Profile</Link>
+              <Link to={`/profile/${userId}`}>Profile</Link>
             </li>
             <li className='navbar-item'>
               <Link to='/about'>About</Link>
