@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { loginUser, checkUser } from "../../Services/authService";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
-  const navigate = useNavigate(); // Hook to navigate programmatically
-
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({
     email: "",
     password: "",
@@ -24,12 +24,12 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentUser.email && currentUser.password) {
-      loginUser(currentUser).then((userLoggedIn) => {
+      login(currentUser).then((userLoggedIn) => {
         if (userLoggedIn) {
           alert(
             `${userLoggedIn.get("email")} has been logged in successfully!`
           );
-          navigate("/"); // Navigate to the protected route after successful login
+          navigate("/main");
         }
       });
     }
@@ -47,4 +47,4 @@ const Login = () => {
   );
 };
 
-export default Login; // Export the Login component
+export default Login;
