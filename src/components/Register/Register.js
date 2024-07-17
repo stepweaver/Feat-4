@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../../Services/authService"; 
+import { createUser } from "../../Services/authService";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
