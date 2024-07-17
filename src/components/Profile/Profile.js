@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Parse from 'parse';
 import { useNavigate, useParams } from 'react-router-dom';
-import PokemonCard from '../Pokemon/PokemonCard';
+import Pokemon from '../Pokemon/PokemonCard';
 import CommentForm from '../Comments/CommentForm';
 import PokemonList from '../Pokemon/PokemonList';
 import FriendsList from '../Friends/FriendsList';
@@ -71,7 +71,7 @@ const Profile = () => {
       <PokemonList caughtPokemons={caughtPokemons} />
       <div className='pokemon-card'>
         {caughtPokemons.map((pokemon, index) => (
-          <PokemonCard key={index} pokemon={pokemon} />
+          <Pokemon key={index} pokemon={pokemon} />
         ))}
       </div>
       <div className='comment-section'>
