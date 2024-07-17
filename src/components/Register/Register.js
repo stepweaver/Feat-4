@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../Services/authService";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
@@ -23,18 +24,20 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(newUser).then((userRegistered) => {
-      if (userRegistered) {
-        alert(
-          `${userRegistered.get("firstName")} ${userRegistered.get(
-            "lastName"
-          )} has been registered successfully!`
-        );
+    console.log("Registering user:", newUser); // Log the new user details
+    const userRegistered = await createUser(newUser);
+    if (userRegistered) {
+      alert(
+        `${userRegistered.get("firstName")} ${userRegistered.get(
+          "lastName"
+        )} has been registered successfully!`
+      );
+      login({ email: newUser.email, password: newUser.password }).then(() => {
         navigate("/main");
-      }
-    });
+      });
+    }
   };
 
   return (
@@ -49,4 +52,3 @@ const Register = () => {
 };
 
 export default Register;
-
