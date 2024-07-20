@@ -5,6 +5,7 @@ export const getAllComments = async () => {
   const query = new Parse.Query(Comment);
   query.include("user"); // Include the user details in the query
   query.descending("createdAt"); // Sort comments by creation date in descending order
+  query.limit(50);
 
   try {
     const results = await query.find();
@@ -22,15 +23,27 @@ export const getAllComments = async () => {
 };
 
 export const addComment = async (commentText) => {
-  const Comment = new Parse.Object("Comment"); // Create a new Parse Object for 'Comment'
-  Comment.set("comment", commentText); // Set the comment text
-  Comment.set("user", Parse.User.current()); // Set the current user
+  const Comment = new Parse.Object("Comment");
+  Comment.set("comment", commentText);
+  Comment.set("user", Parse.User.current());
 
   try {
-    await Comment.save(); // Save the comment object to the Parse server
-    return true; // Return true if save is successful
+    await Comment.save();
+
+    // Check the total number of comments and delete the oldest one if there are more than 50
+    const commentQuery = new Parse.Query(Comment);
+    const count = await commentQuery.count();
+    if (count > 50) {
+      commentQuery.ascending("createdAt");
+      const oldestComment = await commentQuery.first();
+      if (oldestComment) {
+        await oldestComment.destroy();
+      }
+    }
+
+    return true;
   } catch (error) {
-    console.error("Error while creating comment: ", error); // Log any errors
-    return false; // Return false if there is an error
+    console.error("Error while creating comment: ", error);
+    return false;
   }
 };
