@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getAllFriends } from '../../Services/friendsService';
+import { getFriends } from '../../Services/friendsService';
 
 const FriendsList = () => {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     const fetchFriends = async () => {
-      const friendsList = await getAllFriends();
+      const friendsList = await getFriends();
       setFriends(friendsList);
     };
 

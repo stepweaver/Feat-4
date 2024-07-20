@@ -3,13 +3,26 @@ import Parse from "parse";
 export const createUser = async (newUser) => {
   const user = new Parse.User();
 
+  // Function to generate a random 5-digit alphanumeric sequence
+  const generateRandomSequence = (length) => {
+    const characters = '0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  // Generate username with "Trainer #" prefix and a random 5-digit alphanumeric sequence
+  const username = `Trainer #${generateRandomSequence(5)}`;
+
   user.set("firstName", newUser.firstName);
   user.set("lastName", newUser.lastName);
   user.set("email", newUser.email);
-  user.set("username", newUser.email); // Ensure the username is set to a valid value
+  user.set("username", username);
   user.set("password", newUser.password);
 
-  console.log("User object before signUp:", user.toJSON()); // Log the user object
+  console.log("User object before signUp:", user.toJSON());
 
   try {
     const newUserSaved = await user.signUp();
@@ -19,14 +32,14 @@ export const createUser = async (newUser) => {
     const Profile = Parse.Object.extend("Profile");
     const profile = new Profile();
     profile.set("user", newUserSaved);
-    profile.set("username", newUserSaved.get("username")); // Add username to profile
+    profile.set("username", newUserSaved.get("username"));
     profile.set("caughtPokemon", []);
     await profile.save();
 
     console.log("Profile created successfully:", profile);
     return newUserSaved;
   } catch (error) {
-    console.error("Error during sign up:", error); // Log the error
+    console.error("Error during sign up:", error);
     alert(`Error: ${error.message}`);
     return null;
   }
@@ -59,7 +72,7 @@ export const logoutUser = (navigate) => {
       navigate("/unauthorized"); // Navigate to the unauthorized page after logging out
     })
     .catch((error) => {
-      alert(`Error: ${error.message}`); // Alert the user if there's an error
+      alert(`Error: ${error.message}`);
     });
 };
 
