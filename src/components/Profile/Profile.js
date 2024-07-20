@@ -61,7 +61,6 @@ const Profile = () => {
   useEffect(() => {
     const fetchComments = async () => {
       const comments = await getAllComments();
-      console.log('Fetched comments:', comments); // Logging the fetched comments
       setComments(comments);
     };
 
@@ -73,7 +72,6 @@ const Profile = () => {
     if (success) {
       // Refresh comments after successful submission
       const comments = await getAllComments();
-      console.log('Updated comments:', comments); // Logging the updated comments
       setComments(comments);
     }
   };
@@ -127,6 +125,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
 // TODO: Include update profile option.
