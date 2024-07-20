@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { getAllPokemon } from '../../Services/getPokemonService';
-import PokemonList from '../Pokemon/PokemonList';
-import './Main.css';
+import React, { useEffect, useState } from "react";
+import { getAllPokemon } from "../../Services/getPokemonService";
+import PokemonList from "../Pokemon/PokemonList";
+import "./Main.css";
 
 const Main = () => {
   const [pokemons, setPokemons] = useState([]); // State to store all Pokemon
-  const [searchQuery, setSearchQuery] = useState(''); // State to store the search query
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
 
   useEffect(() => {
     getAllPokemon().then((pokemonData) => {
+      console.log("Fetched Pokémon data:", pokemonData); // Logging fetched data
       setPokemons(pokemonData); // Fetch all Pokemon and set the state
     });
   }, []);
@@ -18,15 +19,15 @@ const Main = () => {
   ); // Filter Pokemon based on the search query
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       <h1>Choose Your Pokemon</h1>
       <input
-        type='text'
-        placeholder='Search Pokemon'
+        type="text"
+        placeholder="Search Pokemon"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <PokemonList pokemons={filteredPokemons.slice(0, 20)} />{' '}
+      <PokemonList pokemons={filteredPokemons.slice(0, 488)} />{" "}
       {/* Display filtered Pokemon list */}
     </div>
   );
