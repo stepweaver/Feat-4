@@ -135,6 +135,10 @@
   background-color: #B7B7CE;
 }
 
+.pokemon-types.normal {
+  background-color: #000000;
+}
+
 @media (max-width: 768px) {
   .pokemon-card {
     width: calc(50% - 20px);
