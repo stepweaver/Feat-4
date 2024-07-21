@@ -6,8 +6,8 @@ export const getFriends = async () => {
   query.equalTo('user', Parse.User.current());
   const profile = await query.first();
   if (!profile) {
-    console.error('Profile not found'); // Changed from throwing an error to logging
-    return []; // Return an empty array to indicate no friends or profile not found
+    console.error('Profile not found');
+    return [];
   }
   const friendsList = profile.get('friendsList') || [];
   const friendDetailsPromises = friendsList.map(async (friendPointer) => {
@@ -18,12 +18,12 @@ export const getFriends = async () => {
         username: friend.get('username')
       };
     } catch (error) {
-      console.error('Error fetching friend details:', error);
-      return null; // Return null or a placeholder object for failed fetches
+      console.error(`Error fetching friend details for objectId ${friendPointer.id}:`, error);
+      return null;
     }
   });
   const friendDetails = await Promise.all(friendDetailsPromises);
-  return friendDetails.filter(details => details !== null); // Filter out nulls or placeholders
+  return friendDetails.filter(details => details !== null);
 };
 
 export const addFriend = async (friendId) => {
