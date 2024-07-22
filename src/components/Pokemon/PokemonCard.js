@@ -10,6 +10,7 @@ const PokemonCard = ({ pokemon }) => {
   const [isFlipped, setIsFlipped] = useState(false); // State to track if card is flipped
 
   useEffect(() => {
+    console.log(pokemon);
     const caughtPokemon =
       JSON.parse(localStorage.getItem("caughtPokemon")) || []; // Retrieve caught Pokemon from local storage
     const isPokemonCaught = caughtPokemon.some(

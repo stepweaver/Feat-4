@@ -70,7 +70,7 @@ export const getAllPokemon = async () => {
       id: pokemon.id,
       number: pokemon.get("number"),
       name: pokemon.get("name"),
-      imageURL: pokemon.get("imageURL"),
+      image: pokemon.get("imageURL"),
       types: pokemon.get("types"),
       hp: pokemon.get("hp"),
       attack: pokemon.get("attack"),
