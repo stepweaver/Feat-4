@@ -36,7 +36,7 @@ const PokemonCard = ({ pokemon }) => {
       className={`pokemon-card ${isFlipped ? "flipped" : ""}`}
       onClick={flipCard}
     >
-      <img src={pokemon.imageURL} alt={pokemon.name} />
+      <img src={pokemon.image} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
       <div className={isFlipped ? "content flipped" : "content"}>
         <div className="pokemon-card-front">
