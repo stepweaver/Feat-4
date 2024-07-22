@@ -30,9 +30,9 @@ const Profile = () => {
           return;
         }
       }
-
+  
       setIsAuthenticated(user.id === Parse.User.current().id);
-
+  
       const query = new Parse.Query('Profile');
       query.equalTo('user', user);
       const profile = await query.first();
@@ -42,7 +42,7 @@ const Profile = () => {
         setTrainerBio(profile.get('trainerBio') || 'I am a Pokemon Trainer!');
       }
     };
-
+  
     fetchProfileData();
   }, [id, navigate]);
 
