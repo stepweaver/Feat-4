@@ -1,4 +1,4 @@
-import Parse from 'parse';
+import Parse from "parse";
 
 export const fetchAndSavePokemonData = async () => {
   const promises = [];
@@ -50,7 +50,7 @@ export const fetchAndSavePokemonData = async () => {
         await newPokemon.save();
         console.log(`Pokemon ${info.name} saved successfully`);
       } else {
-        // console.table(`Pokemon ${info.name} already exists`);
+        console.log(`Pokemon ${info.name} already exists`);
       }
     }
     console.log("Pokemon data fetched and saved successfully");
@@ -62,16 +62,25 @@ export const fetchAndSavePokemonData = async () => {
 export const getAllPokemon = async () => {
   const Pokemon = Parse.Object.extend("Pokemon");
   const query = new Parse.Query(Pokemon);
-  return query.find().then((results) => {
+  query.limit(1000); // Set the limit to fetch all Pokemon
+  //query.ascending("hp"); // sort the pokemon by anything
+  try {
+    const results = await query.find();
     return results.map((pokemon) => ({
-      // For each pokemon object, create a new object with the desired field name.
-      objectId: pokemon.id,
-      name: pokemon.get('name'),
-      types: pokemon.get('types'),
-      hp: pokemon.get('hp'),
-      attack: pokemon.get('attack'),
-      defense: pokemon.get('defense'),
-      image: pokemon.get('imageURL'),
+      id: pokemon.id,
+      number: pokemon.get("number"),
+      name: pokemon.get("name"),
+      imageURL: pokemon.get("imageURL"),
+      types: pokemon.get("types"),
+      hp: pokemon.get("hp"),
+      attack: pokemon.get("attack"),
+      defense: pokemon.get("defense"),
+      specialAttack: pokemon.get("specialAttack"),
+      specialDefense: pokemon.get("specialDefense"),
+      speed: pokemon.get("speed"),
     }));
-  });
+  } catch (error) {
+    console.error("Error fetching Pokémon:", error);
+    return [];
+  }
 };
