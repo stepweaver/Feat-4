@@ -26,76 +26,104 @@ export const getFriends = async () => {
   return friendDetails.filter(details => details !== null); // Filter out nulls or placeholders
 };
 
-export const addFriend = async (friendId) => {
+export const addFriend = async (friendUserId) => {
   // Fetch the current user's profile
   const Profile = Parse.Object.extend('Profile');
-  const query = new Parse.Query(Profile);
-  query.equalTo('user', Parse.User.current());
-  const profile = await query.first();
-  if (!profile) {
-    throw new Error('Profile not found');
+  const currentUserQuery = new Parse.Query(Profile);
+  currentUserQuery.equalTo('user', Parse.User.current());
+  const currentUserProfile = await currentUserQuery.first();
+  if (!currentUserProfile) {
+    throw new Error('Current user profile not found');
   }
 
-  // Create a pointer to the friend's profile
+  // Fetch the friend's Profile using their user objectId
+  const friendUserQuery = new Parse.Query(Parse.User);
+  const friendUser = await friendUserQuery.get(friendUserId);
+  const friendProfileQuery = new Parse.Query(Profile);
+  friendProfileQuery.equalTo('user', friendUser);
+  const friendProfile = await friendProfileQuery.first();
+  if (!friendProfile) {
+    throw new Error('Friend profile not found');
+  }
+
+  // Create a pointer to the friend's Profile object
   const friendProfilePointer = {
     __type: 'Pointer',
     className: 'Profile',
-    objectId: friendId
+    objectId: friendProfile.id
   };
 
   // Add the friend's profile pointer to the current user's friends list
-  profile.addUnique('friendsList', friendProfilePointer);
+  currentUserProfile.addUnique('friendsList', friendProfilePointer);
 
   // Save the updated profile
-  await profile.save();
+  await currentUserProfile.save();
+
+  // Alert the user that the friend has been added successfully
+  alert(`You and ${friendUser.get('username')} are now friends! Yay!`);
 
   return true;
 };
 
-export const removeFriend = async (friendId) => {
+export const removeFriend = async (friendUserId) => {
   // Fetch the current user's profile
   const Profile = Parse.Object.extend('Profile');
-  const query = new Parse.Query(Profile);
-  query.equalTo('user', Parse.User.current());
-  const profile = await query.first();
-  if (!profile) {
-    throw new Error('Profile not found');
+  const currentUserQuery = new Parse.Query(Profile);
+  currentUserQuery.equalTo('user', Parse.User.current());
+  const currentUserProfile = await currentUserQuery.first();
+  if (!currentUserProfile) {
+    throw new Error('Current user profile not found');
   }
 
-  // Create a pointer to the friend's profile
+  // Fetch the friend's Profile using their user objectId
+  const friendUserQuery = new Parse.Query(Parse.User);
+  const friendUser = await friendUserQuery.get(friendUserId);
+  const friendProfileQuery = new Parse.Query(Profile);
+  friendProfileQuery.equalTo('user', friendUser);
+  const friendProfile = await friendProfileQuery.first();
+  if (!friendProfile) {
+    throw new Error('Friend profile not found');
+  }
+
+  // Create a pointer to the friend's Profile object
   const friendProfilePointer = {
     __type: 'Pointer',
     className: 'Profile',
-    objectId: friendId
+    objectId: friendProfile.id
   };
 
   // Remove the friend's profile pointer from the current user's friends list
-  profile.remove('friendsList', friendProfilePointer);
+  currentUserProfile.remove('friendsList', friendProfilePointer);
 
   // Save the updated profile
-  await profile.save();
+  await currentUserProfile.save();
 
   return true;
 };
 
-export const checkFriend = async (friendId) => {
+export const checkFriend = async (friendUserId) => {
   // Fetch the current user's profile
   const Profile = Parse.Object.extend('Profile');
-  const query = new Parse.Query(Profile);
-  query.equalTo('user', Parse.User.current());
-  const profile = await query.first();
-  if (!profile) {
-    throw new Error('Profile not found');
+  const currentUserQuery = new Parse.Query(Profile);
+  currentUserQuery.equalTo('user', Parse.User.current());
+  const currentUserProfile = await currentUserQuery.first();
+  if (!currentUserProfile) {
+    throw new Error('Current user profile not found');
   }
 
-  // Create a pointer to the friend's profile
-  const friendProfilePointer = {
-    __type: 'Pointer',
-    className: 'Profile',
-    objectId: friendId
-  };
+  // Fetch the friend's Profile using their user objectId
+  const friendUserQuery = new Parse.Query(Parse.User);
+  const friendUser = await friendUserQuery.get(friendUserId);
+  const friendProfileQuery = new Parse.Query(Profile);
+  friendProfileQuery.equalTo('user', friendUser);
+  const friendProfile = await friendProfileQuery.first();
+  if (!friendProfile) {
+    throw new Error('Friend profile not found');
+  }
 
-  // Check if the friend's profile pointer is in the current user's friends list
-  const friendsList = profile.get('friendsList') || [];
-  return friendsList.some(friend => friend.id === friendId);
-}
+  // Check if the friend's profile objectId is in the current user's friends list
+  const friendsList = currentUserProfile.get('friendsList') || [];
+  const isFriend = friendsList.some(friendPointer => friendPointer.objectId === friendProfile.id);
+
+  return isFriend;
+};

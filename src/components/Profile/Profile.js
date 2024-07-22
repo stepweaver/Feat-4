@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PokemonCard from '../Pokemon/PokemonCard';
 import CommentForm from '../Comments/CommentForm';
 import FriendsList from '../Friends/FriendsList';
+import AddRemoveFriend from '../Friends/AddRemoveFriend';
 import { addComment, getAllComments } from '../../Services/commentService';
-import { addFriend, removeFriend, checkFriend } from '../../Services/friendsService';
 import './Profile.css';
 
 const Profile = () => {
@@ -15,7 +15,6 @@ const Profile = () => {
   const [trainerBio, setTrainerBio] = useState('');
   const [comments, setComments] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isFriend, setIsFriend] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,17 +47,6 @@ const Profile = () => {
   }, [id, navigate]);
 
   useEffect(() => {
-    const checkFriendStatus = async () => {
-      const isFriend = await checkFriend(id);
-      setIsFriend(isFriend);
-    }
-
-    if (id) {
-      checkFriendStatus();
-    }
-  }, [id]);
-
-  useEffect(() => {
     const fetchComments = async () => {
       const comments = await getAllComments();
       setComments(comments);
@@ -76,20 +64,6 @@ const Profile = () => {
     }
   };
 
-  const handleAddFriend = async () => {
-    const success = await addFriend(id);
-    if (success) {
-      console.log('Friend added successfully');
-    }
-  }
-
-  const handleRemoveFriend = async () => {
-    const success = await removeFriend(id);
-    if (success) {
-      console.log('Friend removed successfully');
-  }
-}
-
   return (
     <div className='profile'>
       <h1>{username}</h1>
@@ -97,10 +71,7 @@ const Profile = () => {
       {isAuthenticated ? (
         <FriendsList />
       ) : (
-        <div>
-          <button onClick={handleAddFriend}>Add Friend</button>
-          <button onClick={handleRemoveFriend}>Remove Friend</button>
-        </div>
+        <AddRemoveFriend id={id} />
       )}
       <h2>Caught Pokemon</h2>
       <div className='pokemon-card'>
@@ -125,12 +96,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-// TODO: Include update profile option.
-// TODO: Include create a pokemon option. Write to Pokemon class.
-// TODO: Add css for profile page.
-// TODO: Need a way for registered users to view other user's profiles. Only registered users can leave comments.
-
-// TODO: In the middle of conditional rendering the FriendsList component. Need to add a check to see if the user is logged in. If not display add or remove friend button. If logged in display friends list.
