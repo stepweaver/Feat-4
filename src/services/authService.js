@@ -66,10 +66,12 @@ export const loginUser = async (currUser) => {
 };
 
 // Used in logout component
-export const logoutUser = (navigate) => {
+export const logoutUser = (navigate, onLogoutSuccess) => {
   return Parse.User.logOut()
     .then(() => {
-      navigate("/unauthorized"); // Navigate to the unauthorized page after logging out
+      localStorage.clear(); // Clear local storage
+      onLogoutSuccess(); // Set the user as logged out in the global
+      navigate("/"); // Navigate to the unauthorized page after logging out
     })
     .catch((error) => {
       alert(`Error: ${error.message}`);

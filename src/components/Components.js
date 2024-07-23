@@ -1,37 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
-} from "react-router-dom";
-import Main from "./Main/Main";
-import Navbar from "./Nav/Navbar";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
-import About from "./About/About";
-import Profile from "./Profile/Profile";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import Unauthorized from "./Unauthorized/Unauthorized";
-import LandingPage from "./LandingPage/LandingPage";
-import { AuthContext } from "../Context/AuthContext";
+  Navigate
+} from 'react-router-dom';
+import Main from './Main/Main';
+import Navbar from './Nav/Navbar';
+import Login from './Login/Login';
+import Register from './Register/Register';
+import About from './About/About';
+import Profile from './Profile/Profile';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import LandingPage from './LandingPage/LandingPage';
+import { AuthContext } from '../Context/AuthContext';
 
 const Components = () => {
   const { isAuthenticated } = useContext(AuthContext);
 
   return (
     <Router>
-      <Navbar />
+      {isAuthenticated && <Navbar />}
       <Routes>
         <Route
-          path="/"
+          path='/'
           element={isAuthenticated ? <Main /> : <LandingPage />}
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/about" element={<About />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/about' element={<About />} />
         <Route
-          path="/main"
+          path='/main'
           element={
             <ProtectedRoute>
               <Main />
@@ -39,15 +38,15 @@ const Components = () => {
           }
         />
         <Route
-          path="/profile/:id"
+          path='/profile/:id'
           element={
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
         />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* <Route path="/unauthorized" element={<Unauthorized />} /> */}
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </Router>
   );

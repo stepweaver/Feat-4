@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { logoutUser } from "../Services/authService";
 import Parse from "parse";
 
 export const AuthContext = createContext();
@@ -25,18 +26,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async (navigate) => {
-    try {
-      await Parse.User.logOut();
-      setIsAuthenticated(false);
-      navigate("/");
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-  };
+  const logout = async () => {
+    await logoutUser();
+  }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

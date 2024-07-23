@@ -38,7 +38,9 @@ const Profile = () => {
       const profile = await query.first();
       if (profile) {
         setUsername(user.get('username'));
-        setCaughtPokemons(profile.get('caughtPokemon') || []);
+        let caughtFromProfile = profile.get('caughtPokemon') || [];
+        const caughtFromStorage = JSON.parse(localStorage.getItem('caughtPokemon')) || [];
+        setCaughtPokemons(caughtFromStorage.length > 0 ? caughtFromStorage : caughtFromProfile);
         setTrainerBio(profile.get('trainerBio') || 'I am a Pokemon Trainer!');
       }
     };
